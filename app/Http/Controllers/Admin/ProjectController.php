@@ -4,15 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Project;
 
 class ProjectController extends Controller
 {
+
+    private $rules = [
+        'title' => ['required', 'min:3', 'string', 'max:255'],
+        'image_url' => ['required', 'min:3', 'string', 'max:40'],
+        'date' => ['url:https', 'required'],
+        'description' => ['min:20', 'required'],
+    ];
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $projects = Project::all();
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -20,7 +29,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
@@ -28,7 +37,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate($this->rules);
+
+
+        $project = Project::create($data);
+
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**
@@ -36,7 +50,7 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -44,15 +58,18 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $data = $request->validate($this->rules);
+        $project->update($data);
+
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**
