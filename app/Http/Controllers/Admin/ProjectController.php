@@ -11,9 +11,9 @@ class ProjectController extends Controller
 
     private $rules = [
         'title' => ['required', 'min:3', 'string', 'max:255'],
-        'image_url' => ['required', 'min:3', 'string', 'max:40'],
-        'date' => ['url:https', 'required'],
-        'description' => ['min:20', 'required'],
+        'image_url' => ['required', 'url:https', 'min:3', 'string', 'max:200'],
+        'date' => ['required'],
+        'description' => ['min:5', 'required'],
     ];
     /**
      * Display a listing of the resource.
@@ -48,7 +48,7 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
         return view('admin.projects.show', compact('project'));
     }
@@ -56,7 +56,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
         return view('admin.projects.edit', compact('project'));
     }

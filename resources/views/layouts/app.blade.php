@@ -32,7 +32,7 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.projects.index') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('admin.projects.index') }}">Progetti</a>
                                 </li>
                         @endauth
                     </ul>
