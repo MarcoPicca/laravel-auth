@@ -35,19 +35,15 @@
                     <input class="form-control" type="text" name="description" id="description" value="{{ old('description') }}">
                 </div>
                 <div class="mb-3 input-group">
-                    @auth
                                     
-                        <a href="{{ route('admin.projects.index') }}" class="text-decoration-none">
-                            <button class="btn btn-primary">
-                                Aggiungi un nuovo progetto
-                            </button>
-                        </a>
-                    @endauth
-                    <a href="{{ route('admin.projects.create') }}" class="text-decoration-none">
-                        <button class="btn btn-warning">
-                            Reset
+                    <a href="{{ route('admin.projects.index') }}" class="text-decoration-none">
+                        <button class="btn btn-primary">
+                            Aggiungi un nuovo progetto
                         </button>
                     </a>
+                    <button class="btn btn-warning">
+                        Reset
+                    </button>
                 </div>
 
             </form>

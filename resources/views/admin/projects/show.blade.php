@@ -11,7 +11,7 @@
                 {{ $project->id }}
             </h2>
         </div>
-        <div class="col-12">
+        <div class="col-12 text-center">
             <h2>
                 {{ $project->title }}
             </h2>
@@ -37,9 +37,15 @@
                 <button class="btn btn-sm btn-danger">
                     Delete
                 </button>
-            </p>
-        </tr>
+            </td>
         </div>
+        @auth
+        <a href="{{ route('admin.projects.index') }}" class="text-decoration-none mt-3">
+            <button class="btn btn-primary">
+                Progetti
+            </button>
+        </a>
+        @endauth
     </div>
 </div>
 @endsection
