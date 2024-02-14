@@ -21,7 +21,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('admin.projects.index', compact('projects'));
+        return view('admin.projects.index', compact('project'));
     }
 
     /**
@@ -75,8 +75,33 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->route('admin.projects.index');
+    }
+
+    public function deletedIndex(){
+        $project = Project::onlyTrashed()->get();
+        return view('admin.projects.deleted-index', compact('project'));
+    }
+
+    public function deletedShow(string $id){
+        $project = Project::withTrashed()->where('id', $id)->first();
+        return view('admin.projects.deleted-show', compact('project'));
+    }
+
+    public function deletedRestore(string $id){
+        $project = Project::withTrashed()->where('id', $id)->first();
+        $project->restore();
+
+        return redirect()->route('admin.projects.show', $project);
+    }
+
+    public function deletedDestroy(string $id){
+        $project = Project::withTrashed()->where('id', $id)->first();
+        $project->forceDelete();
+
+        return redirect()->route('admin.projects.deleted.index');
     }
 }
