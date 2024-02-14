@@ -21,7 +21,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('admin.projects.index', compact('project'));
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -82,25 +82,25 @@ class ProjectController extends Controller
     }
 
     public function deletedIndex(){
-        $project = Project::onlyTrashed()->get();
-        return view('admin.projects.deleted-index', compact('project'));
+        $projects = Project::onlyTrashed()->get();
+        return view('admin.projects.deleted-index', compact('projects'));
     }
 
     public function deletedShow(string $id){
-        $project = Project::withTrashed()->where('id', $id)->first();
-        return view('admin.projects.deleted-show', compact('project'));
+        $projects = Project::withTrashed()->where('id', $id)->first();
+        return view('admin.projects.deleted-show', compact('projects'));
     }
 
     public function deletedRestore(string $id){
-        $project = Project::withTrashed()->where('id', $id)->first();
-        $project->restore();
+        $projects = Project::withTrashed()->where('id', $id)->first();
+        $projects->restore();
 
-        return redirect()->route('admin.projects.show', $project);
+        return redirect()->route('admin.projects.show', $projects);
     }
 
     public function deletedDestroy(string $id){
-        $project = Project::withTrashed()->where('id', $id)->first();
-        $project->forceDelete();
+        $projects = Project::withTrashed()->where('id', $id)->first();
+        $projects->forceDelete();
 
         return redirect()->route('admin.projects.deleted.index');
     }
